@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.Identity",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.Operators", "src\GreenTechManager.Operators\GreenTechManager.Operators.csproj", "{ACC72E24-297B-43FD-9924-7A052B346C55}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.SolarParks", "src\GreenTechManager.SolarParks\GreenTechManager.SolarParks.csproj", "{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{ACC72E24-297B-43FD-9924-7A052B346C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACC72E24-297B-43FD-9924-7A052B346C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACC72E24-297B-43FD-9924-7A052B346C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{81B0BC3D-D193-4670-BE06-912D7B9989C0} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 		{4F6EB128-FF81-4ABE-A4A4-35F0C40180C4} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 		{ACC72E24-297B-43FD-9924-7A052B346C55} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
+		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55CECDD2-A8FA-4DEF-9594-B6696633BD3B}
