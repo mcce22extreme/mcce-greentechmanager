@@ -4,11 +4,11 @@ using GreenTechManager.WindParks.Models;
 
 namespace GreenTechManager.WindParks.Validators
 {
-    public class WindTurbineValidator : AbstractValidator<WindTurbineModel>
+    public class WindParkValidator : AbstractValidator<WindParkModel>
     {
-        public WindTurbineValidator()
+        public WindParkValidator()
         {
-            RuleFor(x => x.Type)
+            RuleFor(x => x.Name)
                 .NotEmpty()
                 .MaximumLength(ValidationConstants.DefaultMaxLength);
 
@@ -16,13 +16,8 @@ namespace GreenTechManager.WindParks.Validators
                 .NotEmpty()
                 .MaximumLength(ValidationConstants.DefaultMaxLength);
 
-            RuleFor(x => x.PowerOutput).GreaterThan(0);
-
-            RuleFor(x => x.RotorDiameter).GreaterThan(0);
-
-            RuleFor(x => x.HubHeight).GreaterThan(0);
-
-            RuleFor(x => x.WindParkId).GreaterThan(0);
+            RuleFor(x => x.OperatorId)
+                .GreaterThan(0);                
         }
     }
 }

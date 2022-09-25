@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GreenTechManager.WindParks.Constants;
 
 namespace GreenTechManager.WindParks.Entities
 {
@@ -7,9 +8,11 @@ namespace GreenTechManager.WindParks.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(ValidationConstants.DefaultMaxLength)]
         public int ExternalId { get; set; }
 
         [Required]
+        [MaxLength(ValidationConstants.DefaultMaxLength)]
         public string Name { get; set; }
 
         public IList<WindPark> WindParks { get; }

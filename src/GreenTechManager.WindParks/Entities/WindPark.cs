@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GreenTechManager.WindParks.Constants;
 
 namespace GreenTechManager.WindParks.Entities
 {
@@ -7,6 +8,7 @@ namespace GreenTechManager.WindParks.Entities
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(ValidationConstants.DefaultMaxLength)]
         public string Name { get; set; }
 
         [Required]
@@ -15,6 +17,7 @@ namespace GreenTechManager.WindParks.Entities
         public DateTime? StartOfOperation { get; set; }
 
         [Required]
+        [MaxLength(ValidationConstants.DefaultMaxLength)]
         public string Location { get; set; }
 
         public Operator Operator { get; }
