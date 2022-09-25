@@ -11,9 +11,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EAEDCA81-2F76-49C7-B350-427A7BC1DC02}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.Core", "src\GreenTechManager.Core\GreenTechManager.Core.csproj", "{81B0BC3D-D193-4670-BE06-912D7B9989C0}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81B0BC3D-D193-4670-BE06-912D7B9989C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B0BC3D-D193-4670-BE06-912D7B9989C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B0BC3D-D193-4670-BE06-912D7B9989C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B0BC3D-D193-4670-BE06-912D7B9989C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81B0BC3D-D193-4670-BE06-912D7B9989C0} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55CECDD2-A8FA-4DEF-9594-B6696633BD3B}
