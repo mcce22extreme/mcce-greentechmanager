@@ -23,6 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.SolarParks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.WindParks", "src\GreenTechManager.WindParks\GreenTechManager.WindParks.csproj", "{BC246D03-A801-4871-8C01-36EA5BC6B323}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{CBC7A960-F88D-4F3A-A174-EA25882A9E37}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\rabbitmq-deploy.yaml = k8s\rabbitmq-deploy.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
