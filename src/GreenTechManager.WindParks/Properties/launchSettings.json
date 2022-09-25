@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "GreenTechManager.WindParks": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:63916;http://localhost:63919"
+    }
+  }
+}
