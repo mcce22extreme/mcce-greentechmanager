@@ -14,7 +14,7 @@ namespace GreenTechManager.SolarParks.Models
         public string Location { get; set; }
 
         [Required]
-        public int PowerRating { get; set; }
+        public int PowerOutput { get; set; }
 
         [Required]
         public int Size { get; set; }

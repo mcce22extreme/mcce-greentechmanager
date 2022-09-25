@@ -32,7 +32,7 @@ namespace GreenTechManager.SolarParks
                     Type = "Nuuoko",
                     SolarParkId = 1,
                     Location = "47° 49′ 48″ N, 17° 1′ 20″ O",
-                    PowerRating = 750000,
+                    PowerOutput = 750000,
                     NumberOfPanels = 35,
                     Size = 240                    
                 });

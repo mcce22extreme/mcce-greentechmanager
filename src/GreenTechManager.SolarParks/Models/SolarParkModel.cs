@@ -4,7 +4,7 @@ namespace GreenTechManager.SolarParks.Models
 {
     public class SolarParkModel
     {
-        [Required]
+        [Required]        
         public string Name { get; set; }
 
         [Required]
