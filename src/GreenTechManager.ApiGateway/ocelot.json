@@ -1,0 +1,55 @@
+{
+    "Routes": [
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "identitysrv",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/identity/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "operatorsrv",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/operators/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "windparksrv",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/windparks/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "solarparksrv",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/solarparks/{everything}"
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://apigateway:80"
+    }
+}
