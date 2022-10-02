@@ -1,0 +1,66 @@
+version: "3.5"
+services:
+    apigateway:
+        container_name: apigateway
+        hostname: apigateway
+        image: domih/greentechmanager.apigateway
+        build: 
+            dockerfile: 'src/GreenTechManager.ApiGateway/Dockerfile'
+        ports:
+            - "5910:80"
+        networks:
+        - greentech_net       
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:3-management-alpine
+        hostname: rabbitmq
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        networks:
+        - greentech_net
+        restart: always
+    identitysrv:
+        container_name: identitysrv
+        hostname: identitysrv
+        image: domih/greentechmanager.identity
+        build: 
+            dockerfile: 'src/GreenTechManager.Identity/Dockerfile'
+        networks:
+        - greentech_net
+    operatorsrv:
+        container_name: operatorsrv
+        hostname: operatorsrv
+        image: domih/greentechmanager.operators
+        build: 
+            dockerfile: 'src/GreenTechManager.Operators/Dockerfile'
+        depends_on:
+        - "rabbitmq"
+        networks:
+        - greentech_net
+    solarparksrv:
+        container_name: solarparksrv
+        hostname: solarparksrv
+        image: domih/greentechmanager.solarparks
+        build: 
+            dockerfile: 'src/GreenTechManager.SolarParks/Dockerfile'
+        depends_on:
+        - "rabbitmq"
+        networks:
+        - greentech_net
+    windparksrv:
+        container_name: windparksrv
+        hostname: windparksrv
+        image: domih/greentechmanager.windparks
+        build: 
+            dockerfile: 'src/GreenTechManager.WindParks/Dockerfile'
+        depends_on:
+        - "rabbitmq"
+        networks:
+        - greentech_net
+networks:
+  greentech_net:
+    name: greentech_net
