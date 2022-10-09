@@ -34,6 +34,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{CBC7A960-F88
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.ApiGateway", "src\GreenTechManager.ApiGateway\GreenTechManager.ApiGateway.csproj", "{D38FB46F-B053-492D-92F7-6C274D013D0A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8CC66B0-A48B-4272-BC1D-109026FA94C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenTechManagaer.Operators.Tests", "src\GreenTechManagaer.Operators.Tests\GreenTechManagaer.Operators.Tests.csproj", "{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,10 @@ Global
 		{D38FB46F-B053-492D-92F7-6C274D013D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D38FB46F-B053-492D-92F7-6C274D013D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D38FB46F-B053-492D-92F7-6C274D013D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +83,7 @@ Global
 		{8B3DCBAB-6988-4B85-8B73-A89BEFBE4102} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 		{BC246D03-A801-4871-8C01-36EA5BC6B323} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
 		{D38FB46F-B053-492D-92F7-6C274D013D0A} = {EAEDCA81-2F76-49C7-B350-427A7BC1DC02}
+		{BC026A91-1F39-4DB1-BDBA-DD2F79155F10} = {C8CC66B0-A48B-4272-BC1D-109026FA94C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55CECDD2-A8FA-4DEF-9594-B6696633BD3B}

@@ -8,9 +8,9 @@ namespace GreenTechManager.WindParks.Profiles
     {
         public OperatorProfile()
         {
-            CreateMap<Operator, OperatorListModel>();
+            CreateMap<Operator, OperatorModel>();
 
-            CreateMap<OperatorModel, Operator>();
+            CreateMap<SaveOperatorModel, Operator>();
         }
     }
 }

@@ -11,13 +11,13 @@ namespace GreenTechManager.Operators.Managers
 {
     public interface IOperatorManager
     {
-        Task<OperatorListModel[]> GetOperators();
+        Task<OperatorModel[]> GetOperators();
 
-        Task<OperatorListModel> GetOperator(int operatorId);
+        Task<OperatorModel> GetOperator(int operatorId);
 
-        Task<OperatorListModel> CreateOperator(OperatorModel model);
+        Task<OperatorModel> CreateOperator(SaveOperatorModel model);
 
-        Task<OperatorListModel> UpdateOperator(int operatorId, OperatorModel model);
+        Task<OperatorModel> UpdateOperator(int operatorId, SaveOperatorModel model);
 
         Task DeleteOperator(int operatorId);
     }
@@ -35,14 +35,14 @@ namespace GreenTechManager.Operators.Managers
             _messageBusService = messageBusService;
         }
 
-        public async Task<OperatorListModel[]> GetOperators()
+        public async Task<OperatorModel[]> GetOperators()
         {
             var operators = await _dbContext.Operators.ToListAsync();
 
-            return operators.Select(_mapper.Map<OperatorListModel>).ToArray();
+            return operators.Select(_mapper.Map<OperatorModel>).ToArray();
         }
 
-        public async Task<OperatorListModel> GetOperator(int operatorId)
+        public async Task<OperatorModel> GetOperator(int operatorId)
         {
             var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
 
@@ -51,10 +51,10 @@ namespace GreenTechManager.Operators.Managers
                 throw new NotFoundException($"Could not find operator with id '{operatorId}'!");
             }
 
-            return _mapper.Map<OperatorListModel>(op);
+            return _mapper.Map<OperatorModel>(op);
         }
 
-        public async Task<OperatorListModel> CreateOperator(OperatorModel model)
+        public async Task<OperatorModel> CreateOperator(SaveOperatorModel model)
         {
             var op = _mapper.Map<Operator>(model);
 
@@ -67,11 +67,11 @@ namespace GreenTechManager.Operators.Managers
             return await GetOperator(op.Id);
         }
 
-        public async Task<OperatorListModel> UpdateOperator(int operatorId, OperatorModel model)
+        public async Task<OperatorModel> UpdateOperator(int operatorId, SaveOperatorModel model)
         {
-            var op = _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
+            var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
 
-            await _mapper.Map(model, op);
+            _mapper.Map(model, op);
 
             await _dbContext.SaveChangesAsync();
 

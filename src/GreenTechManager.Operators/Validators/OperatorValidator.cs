@@ -4,9 +4,9 @@ using GreenTechManager.WindParks.Models;
 
 namespace GreenTechManager.Operators.Validators
 {
-    public class OperatorValidator : AbstractValidator<OperatorModel>
+    public class SaveOperatorValidator : AbstractValidator<SaveOperatorModel>
     {
-        public OperatorValidator()
+        public SaveOperatorValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()

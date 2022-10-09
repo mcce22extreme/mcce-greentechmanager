@@ -1,5 +1,4 @@
 ﻿using GreenTechManager.Core.Constants;
-using GreenTechManager.Core.Services;
 using GreenTechManager.Operators.Managers;
 using GreenTechManager.WindParks.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,38 +12,35 @@ namespace GreenTechManager.Operators.Controllers
     [Authorize(Policy = AuthConstants.RequireUserRolePolicy)]
     public class OperatorController : ControllerBase
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
         private readonly IOperatorManager _operatorManager;
-        private readonly IMessageBusService _messageBusService;
 
-        public OperatorController(IOperatorManager operatorManager, IMessageBusService messageBusService)
+        public OperatorController(IOperatorManager operatorManager)
         {
             _operatorManager = operatorManager;
-            _messageBusService = messageBusService;
         }
 
         [HttpGet]
-        public async Task<OperatorListModel[]> GetOperators()
+        public async Task<OperatorModel[]> GetOperators()
         {
             return await _operatorManager.GetOperators();
         }
 
         [HttpGet("{operatorId}")]
-        public async Task<OperatorListModel> GetOperator(int operatorId)
+        public async Task<OperatorModel> GetOperator(int operatorId)
         {
             return await _operatorManager.GetOperator(operatorId);
         }
 
         [HttpPost]
         [Authorize(Policy = AuthConstants.RequireAdminRolePolicy)]
-        public async Task<OperatorListModel> CreateOperator([FromBody] OperatorModel model)
+        public async Task<OperatorModel> CreateOperator([FromBody] SaveOperatorModel model)
         {
             return await _operatorManager.CreateOperator(model);
         }
 
         [HttpPut("{operatorId}")]
         [Authorize(Policy = AuthConstants.RequireAdminRolePolicy)]
-        public async Task<OperatorListModel> UpdateOperator(int operatorId, [FromBody] OperatorModel model)
+        public async Task<OperatorModel> UpdateOperator(int operatorId, [FromBody] SaveOperatorModel model)
         {
             return await _operatorManager.UpdateOperator(operatorId, model);
         }

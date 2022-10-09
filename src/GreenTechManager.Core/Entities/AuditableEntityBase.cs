@@ -17,12 +17,12 @@
     {
         public abstract string EntityName { get; }
 
-        public DateTime? CreatedUtc { get; internal set; }
+        public DateTime? CreatedUtc { get; set; }
 
-        public string Creator { get; internal set; }
+        public string Creator { get; set; }
 
-        public DateTime? ModifiedUtc { get; internal set; }
+        public DateTime? ModifiedUtc { get; set; }
 
-        public string Modifier { get; internal set; }
+        public string Modifier { get; set; }
     }
 }
