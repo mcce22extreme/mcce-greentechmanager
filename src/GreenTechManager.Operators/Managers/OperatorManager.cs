@@ -71,6 +71,11 @@ namespace GreenTechManager.Operators.Managers
         {
             var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
 
+            if (op == null)
+            {
+                throw new NotFoundException($"Could not find operator with id '{operatorId}'!");
+            }
+
             _mapper.Map(model, op);
 
             await _dbContext.SaveChangesAsync();
@@ -83,6 +88,11 @@ namespace GreenTechManager.Operators.Managers
         public async Task DeleteOperator(int operatorId)
         {
             var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
+
+            if (op == null)
+            {
+                throw new NotFoundException($"Could not find operator with id '{operatorId}'!");
+            }
 
             _dbContext.Operators.Remove(op);
 
