@@ -7,11 +7,11 @@ services:
         build: 
             dockerfile: 'src/GreenTechManager.ApiGateway/Dockerfile'
         ports:
-            - "5910:80"
+            - "80:80"
         networks:
         - greentech_net       
     rabbitmq:
-        container_name: rabbitmq
+        container_name: msgbrokersrv
         image: rabbitmq:3-management-alpine
         hostname: rabbitmq
         ports:
@@ -22,7 +22,7 @@ services:
             - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
         networks:
         - greentech_net
-        restart: always
+        #restart: always
     identitysrv:
         container_name: identitysrv
         hostname: identitysrv
