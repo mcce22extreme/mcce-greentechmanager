@@ -10,13 +10,13 @@ namespace GreenTechManager.SolarParks.Managers
     {
         Task<SolarParkListModel[]> GetSolarParks();
 
-        Task<SolarParkListModel> GetSolarPark(int turbineId);
+        Task<SolarParkListModel> GetSolarPark(int solarParkId);
 
         Task<SolarParkListModel> CreateSolarPark(SolarParkModel model);
 
-        Task<SolarParkListModel> UpdateSolarPark(int turbineId, SolarParkModel model);
+        Task<SolarParkListModel> UpdateSolarPark(int solarParkId, SolarParkModel model);
 
-        Task DeleteSolarPark(int turbineId);
+        Task DeleteSolarPark(int solarParkId);
     }
 
     public class SolarParkManager : ISolarParkManager
@@ -32,50 +32,68 @@ namespace GreenTechManager.SolarParks.Managers
 
         public async Task<SolarParkListModel[]> GetSolarParks()
         {
-            var parks = await _dbContext.SolarParks.ToListAsync();
+            var solarParks = await _dbContext
+                .SolarParks
+                .Include(x => x.Operator)
+                .ToListAsync();
 
-            return parks.Select(_mapper.Map<SolarParkListModel>).ToArray();
+            return solarParks.Select(_mapper.Map<SolarParkListModel>).ToArray();
         }
 
-        public async Task<SolarParkListModel> GetSolarPark(int parkId)
+        public async Task<SolarParkListModel> GetSolarPark(int solarParkId)
         {
-            var park = await _dbContext.SolarParks.FirstOrDefaultAsync(x => x.Id == parkId);
+            var solarPark = await _dbContext
+                .SolarParks
+                .Include(x => x.Operator)
+                .FirstOrDefaultAsync(x => x.Id == solarParkId);
 
-            if (park == null)
+            if (solarPark == null)
             {
-                throw new NotFoundException($"Could not find park with id '{parkId}'!");
+                throw new NotFoundException($"Could not find solarpark with id '{solarParkId}'!");
             }
 
-            return _mapper.Map<SolarParkListModel>(park);
+            return _mapper.Map<SolarParkListModel>(solarPark);
         }
 
         public async Task<SolarParkListModel> CreateSolarPark(SolarParkModel model)
         {
-            var park = _mapper.Map<SolarPark>(model);
+            var solarPark = _mapper.Map<SolarPark>(model);
 
-            await _dbContext.SolarParks.AddAsync(park);
-
-            await _dbContext.SaveChangesAsync();
-
-            return await GetSolarPark(park.Id);
-        }
-
-        public async Task<SolarParkListModel> UpdateSolarPark(int parkId, SolarParkModel model)
-        {
-            var park = _dbContext.SolarParks.FirstOrDefaultAsync(x => x.Id == parkId);
-
-            await _mapper.Map(model, park);
+            await _dbContext.SolarParks.AddAsync(solarPark);
 
             await _dbContext.SaveChangesAsync();
 
-            return await GetSolarPark(parkId);
+            return await GetSolarPark(solarPark.Id);
         }
 
-        public async Task DeleteSolarPark(int parkId)
+        public async Task<SolarParkListModel> UpdateSolarPark(int solarParkId, SolarParkModel model)
         {
-            var park = await _dbContext.SolarParks.FirstOrDefaultAsync(x => x.Id == parkId);
+            var solarPark = _dbContext
+                .SolarParks
+                .FirstOrDefaultAsync(x => x.Id == solarParkId);
 
-            _dbContext.SolarParks.Remove(park);
+            if (solarPark == null)
+            {
+                throw new NotFoundException($"Could not find solarpark with id '{solarParkId}'!");
+            }
+
+            await _mapper.Map(model, solarPark);
+
+            await _dbContext.SaveChangesAsync();
+
+            return await GetSolarPark(solarParkId);
+        }
+
+        public async Task DeleteSolarPark(int solarParkId)
+        {
+            var solarPark = await _dbContext.SolarParks.FirstOrDefaultAsync(x => x.Id == solarParkId);
+
+            if (solarPark == null)
+            {
+                throw new NotFoundException($"Could not find solarpark with id '{solarParkId}'!");
+            }
+
+            _dbContext.SolarParks.Remove(solarPark);
 
             await _dbContext.SaveChangesAsync();
         }

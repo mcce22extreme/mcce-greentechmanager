@@ -25,10 +25,10 @@ namespace GreenTechManager.WindParks.Controllers
             return await _solarParkManager.GetSolarParks();
         }
 
-        [HttpGet("{parkId}")]
-        public async Task<SolarParkListModel> GetSolarPark(int parkId)
+        [HttpGet("{solarParkId}")]
+        public async Task<SolarParkListModel> GetSolarPark(int solarParkId)
         {
-            return await _solarParkManager.GetSolarPark(parkId);
+            return await _solarParkManager.GetSolarPark(solarParkId);
         }
 
         [HttpPost]
@@ -38,18 +38,18 @@ namespace GreenTechManager.WindParks.Controllers
             return await _solarParkManager.CreateSolarPark(model);
         }
 
-        [HttpPut("{parkId}")]
+        [HttpPut("{solarParkId}")]
         [Authorize(Policy = AuthConstants.RequireAdminRolePolicy)]
-        public async Task<SolarParkListModel> UpdateSolarPark(int parkId, [FromBody] SolarParkModel model)
+        public async Task<SolarParkListModel> UpdateSolarPark(int solarParkId, [FromBody] SolarParkModel model)
         {
-            return await _solarParkManager.UpdateSolarPark(parkId, model);
+            return await _solarParkManager.UpdateSolarPark(solarParkId, model);
         }
 
-        [HttpDelete("{parkId}")]
+        [HttpDelete("{solarParkId}")]
         [Authorize(Policy = AuthConstants.RequireAdminRolePolicy)]
-        public async Task DeleteSolarPark(int parkId)
+        public async Task DeleteSolarPark(int solarParkId)
         {
-            await _solarParkManager.DeleteSolarPark(parkId);
+            await _solarParkManager.DeleteSolarPark(solarParkId);
         }
     }
 }
