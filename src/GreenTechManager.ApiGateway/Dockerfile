@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
 
 COPY ["src/GreenTechManager.ApiGateway/.", "GreenTechManager.ApiGateway"]
+COPY ["src/GreenTechManager.Core/.", "GreenTechManager.Core"]
 
 RUN dotnet restore "GreenTechManager.ApiGateway/GreenTechManager.ApiGateway.csproj"
 
