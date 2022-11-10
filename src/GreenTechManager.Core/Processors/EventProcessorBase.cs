@@ -57,13 +57,16 @@ namespace GreenTechManager.Core.Processors
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            stoppingToken.ThrowIfCancellationRequested();
+            if (_connection?.IsOpen == true)
+            {
+                stoppingToken.ThrowIfCancellationRequested();
 
-            var consumer = new EventingBasicConsumer(_channel);
+                var consumer = new EventingBasicConsumer(_channel);
 
-            consumer.Received += OnMessageReceived;
+                consumer.Received += OnMessageReceived;
 
-            _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+                _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+            }
 
             return Task.CompletedTask;
         }
