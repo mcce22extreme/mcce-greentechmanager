@@ -8,7 +8,8 @@ namespace GreenTechManager.WindParks.Profiles
     {
         public WindParkProfile()
         {
-            CreateMap<WindPark, WindParkListModel>();
+            CreateMap<WindPark, WindParkListModel>()
+                .ForMember(d => d.OperatorName, opt => opt.MapFrom(s => s.Operator.Name));
 
             CreateMap<WindParkModel, WindPark>();
         }

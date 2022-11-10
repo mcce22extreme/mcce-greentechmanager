@@ -32,41 +32,52 @@ namespace GreenTechManager.WindParks.Managers
 
         public async Task<WindParkListModel[]> GetWindParks()
         {
-            var suppliers = await _dbContext.WindParks.ToListAsync();
+            var windparks = await _dbContext
+                .WindParks
+                .Include(x => x.Operator)
+                .ToListAsync();
 
-            return suppliers
+            return windparks
                 .Select(_mapper.Map<WindParkListModel>)
                 .ToArray();
         }
 
         public async Task<WindParkListModel> GetWindPark(int windParkId)
         {
-            var supplier = await _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
+            var windPark = await _dbContext
+                .WindParks
+                .Include(x => x.Operator)
+                .FirstOrDefaultAsync(x => x.Id == windParkId);
 
-            if (supplier == null)
+            if (windPark == null)
             {
-                throw new NotFoundException($"Could not find supplier with id '{windParkId}'!");
+                throw new NotFoundException($"Could not find windpark with id '{windParkId}'!");
             }
 
-            return _mapper.Map<WindParkListModel>(supplier);
+            return _mapper.Map<WindParkListModel>(windPark);
         }
 
         public async Task<WindParkListModel> CreateWindPark(WindParkModel model)
         {
-            var supplier = _mapper.Map<WindPark>(model);
+            var windPark = _mapper.Map<WindPark>(model);
 
-            await _dbContext.WindParks.AddAsync(supplier);
+            await _dbContext.WindParks.AddAsync(windPark);
 
             await _dbContext.SaveChangesAsync();
             
-            return await GetWindPark(supplier.Id);
+            return await GetWindPark(windPark.Id);
         }
 
         public async Task<WindParkListModel> UpdateWindPark(int windParkId, WindParkModel model)
         {
-            var supplier = _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
+            var windPark = await _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
 
-            await _mapper.Map(model, supplier);
+            if (windPark == null)
+            {
+                throw new NotFoundException($"Could not find windpark with id '{windParkId}'!");
+            }
+
+            _mapper.Map(model, windPark);
 
             await _dbContext.SaveChangesAsync();
 
@@ -75,9 +86,14 @@ namespace GreenTechManager.WindParks.Managers
 
         public async Task DeleteWindPark(int windParkId)
         {
-            var supplier = await _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
+            var windPark = await _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
 
-            _dbContext.WindParks.Remove(supplier);
+            if (windPark == null)
+            {
+                throw new NotFoundException($"Could not find windpark with id '{windParkId}'!");
+            }
+
+            _dbContext.WindParks.Remove(windPark);
 
             await _dbContext.SaveChangesAsync();
         }

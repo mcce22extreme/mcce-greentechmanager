@@ -7,5 +7,7 @@
         public int NumberOfTurbines { get; set; }
 
         public int MaxPowerOuput { get; set; }
+
+        public string OperatorName { get; set; }
     }
 }
