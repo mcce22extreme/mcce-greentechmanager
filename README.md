@@ -66,12 +66,45 @@ A user's scope is included within a generated access token. Therefore a new acce
 The operations of this services can be tested via swagger under http://localhost/identity/swagger/index.html.
 
 ### Windpark Service <a name="windparkservice"></a>
+This service encapsulates functions to manage windparks. For each operation call, an access token with a suitable scope is required, which must be transferred as a bearer authentication header.
+
+Retrieve a list of windparks:
+
+```
+curl -X 'GET' \
+  'http://localhost/windparks/windparks/api/v1/Windpark' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
+Create a new windpark:
+```
+curl -X 'POST' \
+  'http://localhost/windparks/windparks/api/v1/windpark' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "New windpark",
+  "operatorId": 1,
+  "numberOfTurbines": 5,
+  "maxPowerOutput": 100,
+  "startOfOperation": "2014-01-01T00:00:00",
+  "location": "47° 49′ 48″ N, 17° 1′ 20″ O"
+}'
+```
+Delete a windpark:
+```
+curl -X 'DELETE' \
+  'http://localhost/windparks/windparks/api/v1/WindPark/2' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
+
+The operations of this services can be tested via swagger under http://localhost/windparks/swagger/index.html.
 
 ### Solarpark Service <a name="solarparkservice"></a>
 
 ### Operator Service <a name="operatorservice"></a>
-
-### Auditing Service <a name="auditservice"></a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
