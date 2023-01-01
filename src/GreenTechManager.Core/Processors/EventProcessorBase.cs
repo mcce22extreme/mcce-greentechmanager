@@ -12,42 +12,20 @@ namespace GreenTechManager.Core.Processors
 {
     public abstract class EventProcessorBase : BackgroundService
     {
-        private readonly IConnection _connection;
-        private readonly IModel _channel;
-        private readonly string _queueName;
+        private const int MAX_CONNECTION_ATTEMPTS = 3;
 
         private readonly IDictionary<EventType, EventProcessorHandler> _eventHandlers = new Dictionary<EventType, EventProcessorHandler>();
+        private readonly string _hostName;
+        private readonly int _port;
+
+        private IConnection _connection;
+        private IModel _channel;
+        private string _queueName;
 
         public EventProcessorBase(string hostName, int port)
         {
-            var factory = new ConnectionFactory()
-            {
-                HostName = hostName,
-                Port = port
-            };
-            try
-            {
-                Log.Information("Connecting to message bus...");
-
-                _connection = factory.CreateConnection();
-                _channel = _connection.CreateModel();
-
-                _channel.ExchangeDeclare(exchange: MessageBusConstants.EXCHANGE_ENTITY_EVENT, type: ExchangeType.Fanout);
-                _queueName = _channel.QueueDeclare().QueueName;
-
-                _channel.QueueBind(
-                    queue: _queueName,
-                    exchange: MessageBusConstants.EXCHANGE_ENTITY_EVENT,
-                    routingKey: string.Empty);
-
-                Log.Information("Listenting on message bus!");
-
-                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Could not connect to message bus!");
-            }
+            _hostName = hostName;
+            _port = port;
         }
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
@@ -55,9 +33,58 @@ namespace GreenTechManager.Core.Processors
             Log.Information("Message bus connection shut down");
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        private async Task<bool> EstablishConnection()
         {
-            if (_connection?.IsOpen == true)
+            if (_connection == null || !_connection.IsOpen)
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = _hostName,
+                    Port = _port
+                };
+                var retryCount = 0;
+
+                do
+                {
+                    try
+                    {
+                        retryCount++;
+
+                        Log.Information($"Connecting to message bus (attempt {retryCount}/{MAX_CONNECTION_ATTEMPTS}...");
+
+                        _connection = factory.CreateConnection();
+                        _channel = _connection.CreateModel();
+
+                        _channel.ExchangeDeclare(exchange: MessageBusConstants.EXCHANGE_ENTITY_EVENT, type: ExchangeType.Fanout);
+                        _queueName = _channel.QueueDeclare().QueueName;
+
+                        _channel.QueueBind(
+                            queue: _queueName,
+                            exchange: MessageBusConstants.EXCHANGE_ENTITY_EVENT,
+                            routingKey: string.Empty);
+
+                        Log.Information("Successfully connected to message bus!");
+
+                        _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Could not connect to message bus!");
+                        await Task.Delay(3000);
+                    }
+                } while (retryCount < MAX_CONNECTION_ATTEMPTS);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            if (await EstablishConnection())
             {
                 stoppingToken.ThrowIfCancellationRequested();
 
@@ -67,8 +94,6 @@ namespace GreenTechManager.Core.Processors
 
                 _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
             }
-
-            return Task.CompletedTask;
         }
 
         protected virtual void OnMessageReceived(object sender, BasicDeliverEventArgs e)
