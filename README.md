@@ -37,6 +37,33 @@ Data is stored according to the "share-nothing" or "share-as-little-as-possible"
 ## Services <a name="services"></a>
 
 ### Identity Service <a name="identityservice"></a>
+Provides user authentication and authorization functions. An access token can be obtained from this service via the login operation:
+```
+curl -X 'POST' \
+  'http://localhost/identity/api/v1/Auth/login' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "clientId": "greentechclient",
+  "userName": "operatoradmin",
+  "password": "******************"
+}'
+```
+This AccessToken is required for all other service calls of the application. Access to the various services is secured using a role system. Writing and deleting operations may only be performed by administrators. The following preconfigured administrator users are available:
+
+- operatoradmin
+- windparkadmin
+- solarparkadmin
+
+Reading persons may also be carried out by normal users. The following preconfigured user accounts are available:
+
+- operatoruser
+- windparkuser
+- solarparkuser
+
+A user's scope is included within a generated access token. Therefore a new access token is required for a scope change.
+
+The operations of this services can be tested via swagger under http://localhost/identity/swagger/index.html.
 
 ### Windpark Service <a name="windparkservice"></a>
 
