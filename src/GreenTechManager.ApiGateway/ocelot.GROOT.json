@@ -1,0 +1,68 @@
+{
+    "Routes": [
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9001
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/identity/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9002
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "SwaggerKey": "operators",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/operators/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9004
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/windparks/{everything}"
+        },
+        {
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9003
+                }
+            ],
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
+            "UpstreamPathTemplate": "/solarparks/{everything}"
+        }
+    ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "operators",
+            "Config": [
+                {
+                    "Name": "Operators API",
+                    "Version": "v1",
+                    "Url": "http://localhost:9002/swagger/v1/swagger.json"
+                }
+            ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:9000"
+    }
+}
