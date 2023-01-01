@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.8"
 services:
     apigateway:
         container_name: apigateway
@@ -8,27 +8,20 @@ services:
             dockerfile: 'src/GreenTechManager.ApiGateway/Dockerfile'
         ports:
             - "80:80"
+        depends_on:
+            rabbitmq:
+                condition: service_healthy             
         networks:
         - greentech_net       
-    rabbitmq:
-        container_name: msgbrokersrv
-        image: rabbitmq:3-management-alpine
-        hostname: rabbitmq
-        ports:
-            - 5672:5672
-            - 15672:15672
-        volumes:
-            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-        networks:
-        - greentech_net
-        #restart: always
     identitysrv:
         container_name: identitysrv
         hostname: identitysrv
         image: domih/greentechmanager.identity
         build: 
             dockerfile: 'src/GreenTechManager.Identity/Dockerfile'
+        depends_on:
+            rabbitmq:
+                condition: service_healthy                
         networks:
         - greentech_net
     operatorsrv:
@@ -38,7 +31,8 @@ services:
         build: 
             dockerfile: 'src/GreenTechManager.Operators/Dockerfile'
         depends_on:
-        - "rabbitmq"
+            rabbitmq:
+                condition: service_healthy        
         networks:
         - greentech_net
     solarparksrv:
@@ -48,7 +42,8 @@ services:
         build: 
             dockerfile: 'src/GreenTechManager.SolarParks/Dockerfile'
         depends_on:
-        - "rabbitmq"
+            rabbitmq:
+                condition: service_healthy         
         networks:
         - greentech_net
     windparksrv:
@@ -58,9 +53,28 @@ services:
         build: 
             dockerfile: 'src/GreenTechManager.WindParks/Dockerfile'
         depends_on:
-        - "rabbitmq"
+            rabbitmq:
+                condition: service_healthy       
         networks:
         - greentech_net
+    rabbitmq:
+        container_name: msgbrokersrv
+        image: rabbitmq:3-management-alpine
+        hostname: rabbitmq
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia
+        healthcheck:
+              test:  wget --no-verbose --tries=1 --spider http://localhost:15672 || exit 1
+              interval: 5s
+              retries: 5
+              start_period: 5s
+              timeout: 5s
+        restart: unless-stopped                           
+        networks:
+        - greentech_net        
 networks:
   greentech_net:
     name: greentech_net

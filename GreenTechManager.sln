@@ -24,19 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.SolarParks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.WindParks", "src\GreenTechManager.WindParks\GreenTechManager.WindParks.csproj", "{BC246D03-A801-4871-8C01-36EA5BC6B323}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "K8S", "K8S", "{CBC7A960-F88D-4F3A-A174-EA25882A9E37}"
-	ProjectSection(SolutionItems) = preProject
-		k8s\identity-depl.yaml = k8s\identity-depl.yaml
-		k8s\identity-np-srv.yaml = k8s\identity-np-srv.yaml
-		k8s\ingress-srv.yaml = k8s\ingress-srv.yaml
-		k8s\rabbitmq-deploy.yaml = k8s\rabbitmq-deploy.yaml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManager.ApiGateway", "src\GreenTechManager.ApiGateway\GreenTechManager.ApiGateway.csproj", "{D38FB46F-B053-492D-92F7-6C274D013D0A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8CC66B0-A48B-4272-BC1D-109026FA94C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenTechManagaer.Operators.Tests", "src\GreenTechManagaer.Operators.Tests\GreenTechManagaer.Operators.Tests.csproj", "{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenTechManagaer.Operators.Tests", "src\GreenTechManagaer.Operators.Tests\GreenTechManagaer.Operators.Tests.csproj", "{BC026A91-1F39-4DB1-BDBA-DD2F79155F10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
