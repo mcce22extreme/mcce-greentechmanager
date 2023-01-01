@@ -17,6 +17,8 @@ namespace GreenTechManager.SolarParks.Managers
         Task<SolarParkListModel> UpdateSolarPark(int solarParkId, SolarParkModel model);
 
         Task DeleteSolarPark(int solarParkId);
+
+        Task<OperatorModel[]> GetSolarParkOperators();
     }
 
     public class SolarParkManager : ISolarParkManager
@@ -55,8 +57,20 @@ namespace GreenTechManager.SolarParks.Managers
             return _mapper.Map<SolarParkListModel>(solarPark);
         }
 
+        private async Task VerifyOperator(int? operatorId)
+        {
+            var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
+
+            if (op == null)
+            {
+                throw new NotFoundException($"Could not find operator with id '{operatorId}'!");
+            }
+        }
+
         public async Task<SolarParkListModel> CreateSolarPark(SolarParkModel model)
         {
+            await VerifyOperator(model?.OperatorId);
+
             var solarPark = _mapper.Map<SolarPark>(model);
 
             await _dbContext.SolarParks.AddAsync(solarPark);
@@ -68,6 +82,8 @@ namespace GreenTechManager.SolarParks.Managers
 
         public async Task<SolarParkListModel> UpdateSolarPark(int solarParkId, SolarParkModel model)
         {
+            await VerifyOperator(model?.OperatorId);
+
             var solarPark = _dbContext
                 .SolarParks
                 .FirstOrDefaultAsync(x => x.Id == solarParkId);
@@ -96,6 +112,13 @@ namespace GreenTechManager.SolarParks.Managers
             _dbContext.SolarParks.Remove(solarPark);
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<OperatorModel[]> GetSolarParkOperators()
+        {
+            var operators = await _dbContext.Operators.ToListAsync();
+
+            return operators.Select(_mapper.Map<OperatorModel>).ToArray();
         }
     }
 }

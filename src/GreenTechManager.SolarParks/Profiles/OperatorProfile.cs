@@ -8,7 +8,7 @@ namespace GreenTechManager.SolarParks.Profiles
     {
         public OperatorProfile()
         {
-            CreateMap<OperatorModel, Operator>();
+            CreateMap<OperatorModel, Operator>().ReverseMap();
         }
     }
 }
