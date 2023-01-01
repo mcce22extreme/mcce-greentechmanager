@@ -123,6 +123,11 @@ The operations of this services can be tested via swagger under http://localhost
 
 ## Getting Started <a name="gettingstarted"></a>
 
+1. Install and execute docker desktop
+2. Checkout the repository
+3. Navigate to the root folder
+4. Execute docker compose up
+
 ## Disclaimer <a name="disclaimer"></a>
 The scenario shown in this repository is a purely fictitious project and is intended to illustrate the various software components and aspects of a microservice architecture.
 
