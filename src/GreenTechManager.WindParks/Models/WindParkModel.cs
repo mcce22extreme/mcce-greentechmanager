@@ -10,6 +10,10 @@ namespace GreenTechManager.WindParks.Models
         [Required]
         public int OperatorId { get; set; }
 
+        public int NumberOfTurbines { get; set; }
+
+        public int MaxPowerOutput { get; set; }
+
         public DateTime? StartOfOperation { get; set; }
 
         [Required]

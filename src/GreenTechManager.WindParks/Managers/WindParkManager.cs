@@ -17,6 +17,8 @@ namespace GreenTechManager.WindParks.Managers
         Task<WindParkListModel> UpdateWindPark(int windParkId, WindParkModel model);
 
         Task DeleteWindPark(int windParkId);
+
+        Task<OperatorModel[]> GetWindParkOperators();
     }
 
     public class WindParkManager : IWindParkManager
@@ -57,8 +59,20 @@ namespace GreenTechManager.WindParks.Managers
             return _mapper.Map<WindParkListModel>(windPark);
         }
 
+        private async Task VerifyOperator(int? operatorId)
+        {
+            var op = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == operatorId);
+
+            if (op == null)
+            {
+                throw new NotFoundException($"Could not find operator with id '{operatorId}'!");
+            }
+        }
+
         public async Task<WindParkListModel> CreateWindPark(WindParkModel model)
         {
+            await VerifyOperator(model.OperatorId);
+
             var windPark = _mapper.Map<WindPark>(model);
 
             await _dbContext.WindParks.AddAsync(windPark);
@@ -70,6 +84,8 @@ namespace GreenTechManager.WindParks.Managers
 
         public async Task<WindParkListModel> UpdateWindPark(int windParkId, WindParkModel model)
         {
+            await VerifyOperator(model.OperatorId);
+
             var windPark = await _dbContext.WindParks.FirstOrDefaultAsync(x => x.Id == windParkId);
 
             if (windPark == null)
@@ -96,6 +112,13 @@ namespace GreenTechManager.WindParks.Managers
             _dbContext.WindParks.Remove(windPark);
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<OperatorModel[]> GetWindParkOperators()
+        {
+            var operators = await _dbContext.Operators.ToListAsync();
+
+            return operators.Select(_mapper.Map<OperatorModel>).ToArray();
         }
     }
 }
