@@ -112,6 +112,9 @@ namespace GreenTechManager.Core
             // Configure swagger doc generation
             builder.Services.AddSwaggerGen(c =>
             {
+                var filePath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetEntryAssembly().GetName().Name}.xml");
+                c.IncludeXmlComments(filePath);
+                
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",

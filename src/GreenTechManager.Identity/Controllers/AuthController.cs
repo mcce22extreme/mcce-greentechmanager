@@ -10,6 +10,12 @@ namespace GreenTechManager.Identity.Controllers
     {
         private static readonly HttpClient HttpClient = new HttpClient();
 
+        /// <summary>
+        /// Performs a login for the provided user credentials and returns a generated access token.
+        /// </summary>
+        /// <param name="model">A client id and the user credentials as POST payload.</param>
+        /// <response code="200">Login was successful</response>
+        /// <response code="401">Provided credentials not valid</response>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
