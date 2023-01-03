@@ -19,6 +19,12 @@ namespace GreenTechManager.WindParks.Controllers
             _auditEntryManager = auditEntryManager;
         }
 
+        /// <summary>
+        /// Retrieve a list of audit entries.
+        /// </summary>
+        /// <response code="200">Audit entries retrieved successfully.</response>
+        /// <response code="401">No authentication information provided.</response>
+        /// <response code="403">Not authorized to retrieve audit entries.</response>
         [HttpGet]
         public async Task<AuditEntryModel[]> GetAuditEntries()
         {

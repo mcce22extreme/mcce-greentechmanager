@@ -19,6 +19,12 @@ namespace GreenTechManager.WindParks.Controllers
             _windParkManager = windParkManager;
         }
 
+        /// <summary>
+        /// Retrieve a list of available wind park operators.
+        /// </summary>
+        /// <response code="200">Wind park operators retrieved successfully.</response>
+        /// <response code="401">No authentication information provided.</response>
+        /// <response code="403">Not authorized to retrieve wind park operators.</response>
         [HttpGet]
         public async Task<OperatorModel[]> GetWindParkOperators()
         {
