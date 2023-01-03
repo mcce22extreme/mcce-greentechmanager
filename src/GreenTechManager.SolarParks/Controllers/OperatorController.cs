@@ -19,6 +19,12 @@ namespace GreenTechManager.SolarParks.Controllers
             _solarParkManager = solarParkManager;
         }
 
+        /// <summary>
+        /// Retrieve a list of available solar park operators.
+        /// </summary>
+        /// <response code="200">Solar park operators retrieved successfully.</response>
+        /// <response code="401">No authentication information provided.</response>
+        /// <response code="403">Not authorized to retrieve solar park operators.</response>
         [HttpGet]
         public async Task<OperatorModel[]> GetSolarParkOperators()
         {

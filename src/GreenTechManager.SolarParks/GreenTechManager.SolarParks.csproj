@@ -11,6 +11,8 @@
     <UserSecretsId>17ff5cb1-1c9d-41fb-839f-67d9cfca7d1f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
