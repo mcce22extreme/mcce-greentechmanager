@@ -92,6 +92,8 @@ curl -X 'POST' \
   "location": "47° 49′ 48″ N, 17° 1′ 20″ O"
 }'
 ```
+Before adding a new windpark, be sure that the references operator exists. The operation will fail, if the referenced operator does not exist.
+
 Delete a windpark:
 ```
 curl -X 'DELETE' \
@@ -104,7 +106,82 @@ The operations of this services can be tested via swagger under http://localhost
 
 ### Solarpark Service <a name="solarparkservice"></a>
 
+This service encapsulates functions to manage solarparks. For each operation call, an access token with a suitable scope is required, which must be transferred as a bearer authentication header.
+
+Retrieve a list of solarparks:
+
+```
+curl -X 'GET' \
+  'http://localhost/solarparks/api/v1/SolarPark' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
+
+Create a new solarpark:
+
+```
+curl -X 'POST' \
+  'http://localhost/solarparks/api/v1/SolarPark' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "New solarpark",
+  "operatorId": 1,
+  "startOfOperation": "2023-01-03T11:13:19.811Z",
+  "location": "49° 49′ 48″ N, 17° 1′ 20″ O"
+}'
+```
+
+Before adding a new solarpark, be sure that the references operator exists. The operation will fail, if the referenced operator does not exist.
+
+Delete an existing solarpark:
+
+```
+curl -X 'DELETE' \
+  'http://localhost/solarparks/api/v1/SolarPark/2' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
+
 ### Operator Service <a name="operatorservice"></a>
+
+This service encapsulates functions to manage operators of solar- and windparks. For each operation call, an access token with a suitable scope is required, which must be transferred as a bearer authentication header.
+
+Retrieve a list of operators:
+
+```
+curl -X 'GET' \
+  'http://localhost/operators/api/v1/Operator' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
+
+Create a new operator:
+
+```
+curl -X 'POST' \
+  'http://localhost/operators/api/v1/Operator' \
+  -H 'accept: text/plain' \
+  -H 'Authorization: Bearer {AccessToken}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "New operator",
+  "address": "demo address",
+  "city": "demo city",
+  "zip": 1237,
+  "country": "demp country"
+}'
+```
+
+Delete an existing operator:
+
+```
+curl -X 'DELETE' \
+  'http://localhost/operators/api/v1/Operator/2' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {AccessToken}'
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
