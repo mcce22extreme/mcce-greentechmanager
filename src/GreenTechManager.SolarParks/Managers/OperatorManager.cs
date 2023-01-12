@@ -2,6 +2,7 @@
 using GreenTechManager.SolarParks.Entities;
 using GreenTechManager.SolarParks.Models;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace GreenTechManager.SolarParks.Managers
 {
@@ -29,11 +30,15 @@ namespace GreenTechManager.SolarParks.Managers
 
             if (op == null)
             {
+                Log.Information("Creating new solarpark operator.");
+
                 op = _mapper.Map<Operator>(model);
                 _dbContext.Operators.Add(op);
             }
             else
             {
+                Log.Information("Updating existing solarpark operator.");
+
                 _mapper.Map(model, op);
             }
 
@@ -42,6 +47,8 @@ namespace GreenTechManager.SolarParks.Managers
 
         public async Task DeleteOperator(int windParkId)
         {
+            Log.Information("Deleting existing solarpark operator.");
+
             var windPark = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == windParkId);
 
             _dbContext.Operators.Remove(windPark);
