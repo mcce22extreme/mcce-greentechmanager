@@ -2,6 +2,7 @@
 using GreenTechManager.WindParks.Entities;
 using GreenTechManager.WindParks.Models;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace GreenTechManager.WindParks.Managers
 {
@@ -29,11 +30,15 @@ namespace GreenTechManager.WindParks.Managers
 
             if (op == null)
             {
+                Log.Information("Creating new windpark operator.");
+
                 op = _mapper.Map<Operator>(model);
                 _dbContext.Operators.Add(op);
             }
             else
             {
+                Log.Information("Updating existing windpark operator.");
+
                 _mapper.Map(model, op);
             }
 
@@ -42,6 +47,8 @@ namespace GreenTechManager.WindParks.Managers
 
         public async Task DeleteOperator(int windParkId)
         {
+            Log.Information("Deleting existing windpark operator.");
+
             var windPark = await _dbContext.Operators.FirstOrDefaultAsync(x => x.Id == windParkId);
 
             _dbContext.Operators.Remove(windPark);

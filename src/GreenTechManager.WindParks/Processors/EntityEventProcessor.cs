@@ -4,6 +4,7 @@ using GreenTechManager.Core.Processors;
 using GreenTechManager.WindParks.Entities;
 using GreenTechManager.WindParks.Managers;
 using GreenTechManager.WindParks.Models;
+using Serilog;
 
 namespace GreenTechManager.WindParks.Processors
 {
@@ -25,6 +26,8 @@ namespace GreenTechManager.WindParks.Processors
         {
             if (msg.EntityType == nameof(Operator))
             {
+                Log.Information("Receiving message from message bus...");
+
                 using var scope = _scopeFactory.CreateScope();
 
                 var operatorManager = scope.ServiceProvider.GetRequiredService<IOperatorManager>();
@@ -41,6 +44,8 @@ namespace GreenTechManager.WindParks.Processors
         {
             if (msg.EntityType == nameof(Operator))
             {
+                Log.Information("Receiving message from message bus...");
+
                 using var scope = _scopeFactory.CreateScope();
 
                 var operatorManager = scope.ServiceProvider.GetRequiredService<IOperatorManager>();
