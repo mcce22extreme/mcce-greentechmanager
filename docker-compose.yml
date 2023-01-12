@@ -1,18 +1,36 @@
 version: "3.8"
 services:
+    proxy:
+        container_name: proxy
+        image: nginx:1.19.10-alpine
+        ports:
+          - 80:80
+          - 443:443
+        volumes:
+          - ~/./proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+          - ~/./proxy/certs:/etc/nginx/certs
+        depends_on:
+            rabbitmq:
+                condition: service_healthy           
+        networks:
+          - greentech_net           
     apigateway:
         container_name: apigateway
         hostname: apigateway
         image: domih/greentechmanager.apigateway
         build: 
-            dockerfile: 'src/GreenTechManager.ApiGateway/Dockerfile'
-        ports:
-            - "80:80"
+            dockerfile: 'src/greentechmanager.apigateway/dockerfile'
         depends_on:
             rabbitmq:
                 condition: service_healthy             
+        healthcheck:
+              test:  curl -f http://apigateway || exit 1
+              interval: 5s
+              retries: 5
+              start_period: 5s
+              timeout: 5s                
         networks:
-        - greentech_net       
+           - greentech_net       
     identitysrv:
         container_name: identitysrv
         hostname: identitysrv
@@ -61,9 +79,9 @@ services:
         container_name: msgbrokersrv
         image: rabbitmq:3-management-alpine
         hostname: rabbitmq
-        ports:
-            - 5672:5672
-            - 15672:15672
+        # ports:
+            # - 5672:5672
+            # - 15672:15672
         volumes:
             - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia
         healthcheck:
@@ -74,7 +92,7 @@ services:
               timeout: 5s
         restart: unless-stopped                           
         networks:
-        - greentech_net        
+            - greentech_net        
 networks:
   greentech_net:
     name: greentech_net
