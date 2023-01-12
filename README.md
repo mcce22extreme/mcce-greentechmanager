@@ -195,6 +195,7 @@ curl -X 'DELETE' \
 - [Docker](https://www.docker.com/)
 - [Ocelot](https://github.com/ThreeMammals/Ocelot)
 - [IdentityServer4](https://identityserver4.readthedocs.io/)
+- [Nginx](https://www.nginx.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
